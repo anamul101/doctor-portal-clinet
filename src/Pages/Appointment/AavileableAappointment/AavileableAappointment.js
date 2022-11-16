@@ -1,16 +1,27 @@
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import AppointmentModal from '../AppointmentModal/AppointmentModal';
 import AppointmentOptions from '../AppointmentOptions/AppointmentOptions';
 
 const AavileableAappointment = ({selectedDate}) => {
-    const [appointmentOptions, setAppointmentOptions]=useState([]);
+    // const [appointmentOptions, setAppointmentOptions]=useState([]);
     const [tretment, setTretment] = useState(null);
-    useEffect(()=>{
-        fetch('appointmentOption.json')
+    const date = format(selectedDate, "PP");
+
+    const {data:appointmentOptions=[],isLoading,refetch} = useQuery({
+        queryKey:['appointmentOption',date],
+        queryFn: ()=>fetch(`http://localhost:5000/appointmentOption?date=${date}`)
         .then(res=>res.json())
-        .then(data=>setAppointmentOptions(data))
-    },[])
+    })
+    if(isLoading){
+        return <h1 className='text-2xl font-bold text-green-600 text-center my-12'>Loading...</h1>
+    }
+    // useEffect(()=>{
+    //     fetch('http://localhost:5000/appointmentOption')
+    //     .then(res=>res.json())
+    //     .then(data=>setAppointmentOptions(data))
+    // },[])
     return (
         <section className='my-12'>
             <p className='text-xl font-bold text-center text-secondary'>You have selected Date: {format(selectedDate, 'PP')}</p>
@@ -27,6 +38,7 @@ const AavileableAappointment = ({selectedDate}) => {
                     tretment={tretment}
                     selectedDate={selectedDate}
                     setTretment={setTretment}
+                    refetch={refetch}
                     ></AppointmentModal>
                 }
             </div>
