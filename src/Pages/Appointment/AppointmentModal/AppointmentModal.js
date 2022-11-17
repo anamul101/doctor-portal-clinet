@@ -10,14 +10,14 @@ const AppointmentModal = ({tretment,setTretment,selectedDate,refetch}) => {
     const handelBooking=(e)=>{
         e.preventDefault();
         const form = e.target;
-        const slots=form.slots.value;
+        const slot=form.slot.value;
         const customerName= form.name.value;
         const email=form.email.value;
         const phone=form.phone.value;
         const bookingDate ={
-            selectedDates:date,
+            appointmentDate:date,
             treatment:name,
-            slots,
+            slot,
             customerName,
             email,
             phone
@@ -38,6 +38,8 @@ const AppointmentModal = ({tretment,setTretment,selectedDate,refetch}) => {
                 toast.success('Booking succesful')
                 setTretment(null)
                 refetch();
+            }else{
+                toast.error(data.message);
             }
            
         })
@@ -52,7 +54,7 @@ const AppointmentModal = ({tretment,setTretment,selectedDate,refetch}) => {
                     <h3 className="text-lg font-bold">{name}</h3>
                     <form onSubmit={handelBooking} className='mt-10 grid grid-cols-1 gap-6'>
                         <input type="text" disabled value={date} className="input input-bordered input-sm w-full" />
-                        <select name='slots' className="select select-bordered select-sm w-full">
+                        <select name='slot' className="select select-bordered select-sm w-full">
                             {
                                 slots.map((slot,i)=><option value={slot} key={i}>{slot}</option>)
                             }
