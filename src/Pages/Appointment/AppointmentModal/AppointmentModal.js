@@ -5,7 +5,7 @@ import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const AppointmentModal = ({tretment,setTretment,selectedDate,refetch}) => {
     const {user}=useContext(AuthContext);
-    const {name,slots} = tretment;
+    const {name,slots,price} = tretment;
     const date = format(selectedDate,'PP');
     const handelBooking=(e)=>{
         e.preventDefault();
@@ -20,7 +20,8 @@ const AppointmentModal = ({tretment,setTretment,selectedDate,refetch}) => {
             slot,
             customerName,
             email,
-            phone
+            phone,
+            price
 
         }
         console.log(bookingDate);
