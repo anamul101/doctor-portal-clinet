@@ -9,7 +9,7 @@ const ManagedDoctors = () => {
         queryKey:['doctors'],
         queryFn:async()=>{
             try{
-                const res = await fetch('http://localhost:5000/doctors',{
+                const res = await fetch('https://doctor-portal-server-ten-beta.vercel.app/doctors',{
                     headers:{
                         authorization:`bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -26,7 +26,7 @@ const ManagedDoctors = () => {
         setDoctorDeleted(null)
     }
     const handelDeleDoctor=(doctor)=>{
-        fetch(`http://localhost:5000/doctors/${doctor._id}`,{
+        fetch(`https://doctor-portal-server-ten-beta.vercel.app/doctors/${doctor._id}`,{
             method:'DELETE',
             headers:{
                 authorization:`bearer ${localStorage.getItem('accessToken')}`
@@ -61,7 +61,7 @@ const ManagedDoctors = () => {
                     </thead>
                     <tbody>
                     {
-                        doctors.map((doctor,i)=>
+                        doctors?.map((doctor,i)=>
                         <tr>
                             <th>{i+1}</th>
                             <td>

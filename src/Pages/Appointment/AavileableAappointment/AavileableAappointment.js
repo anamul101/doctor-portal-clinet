@@ -11,14 +11,14 @@ const AavileableAappointment = ({selectedDate}) => {
 
     const {data:appointmentOptions=[],isLoading,refetch} = useQuery({
         queryKey:['appointmentOption',date],
-        queryFn: ()=>fetch(`http://localhost:5000/appointmentOption?date=${date}`)
+        queryFn: ()=>fetch(`https://doctor-portal-server-ten-beta.vercel.app/appointmentOption?date=${date}`)
         .then(res=>res.json())
     })
     if(isLoading){
         return <h1 className='text-2xl font-bold text-green-600 text-center my-12'>Loading...</h1>
     }
     // useEffect(()=>{
-    //     fetch('http://localhost:5000/appointmentOption')
+    //     fetch('https://doctor-portal-server-ten-beta.vercel.app/appointmentOption')
     //     .then(res=>res.json())
     //     .then(data=>setAppointmentOptions(data))
     // },[])
